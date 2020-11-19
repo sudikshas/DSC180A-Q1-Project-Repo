@@ -83,8 +83,8 @@ def main(targets):
         import os.path
 
         save_path = load_params(test_results)["out_file"]
-        completeFileName = os.path.join(save_path, "test_results.txt")         
-        outFile = open(completeFileName, "w")
+        #completeFileName = os.path.join(save_path, "test_results.txt")         
+        outFile = open(save_path, "w")
         print(outFile)
         outF = open(outFile, "w")
         outF.write(summary)
