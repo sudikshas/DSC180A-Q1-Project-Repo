@@ -1,4 +1,4 @@
-# ExplainableAI_checkpoint1
+# ExplainableAI_checkpoint2
 
 Quick Note: While our code runs on the dsmlp cluster, we had problems pushing to github. I have downloaded individual files such as the demo and the run file. THe run file woud need the dataset and a config folder with the uploaded data-params.json file.(For this iteration of the run file we do not need the config folder) We will need some help in Office hours to understand how to submit this for future replications of the demo 
 
@@ -26,6 +26,9 @@ This will create the images folder mentioned above as well as output the percent
 -       base_images parameter allows users to input categories that the image needs to have
 
 -       add_objects parameter allows users to input additional objects to check if these categories are in the images with the base images
+
+python run.py test
+Runs all the targets on a given test data under the test/testdata directory
 
 Group Members Work Contributions:
 - Pratyush Juneja: Worked on the run.py file t obe executed with data-params.json
