@@ -30,12 +30,12 @@ def get_associated_objects_images(cocoObject, imgIds1, imgIds2, base, added):
     
     summary =  "{}% of the images with {} have {}".format(perc,', '.join(base),
                                                           ', '.join(added))
-    for i in imgIds2:
-        img = cocoObject.loadImgs(i)[0]
-        I=io.imread(img['coco_url'])
-        plt.axis('off')
-        ax= plt.imshow(I)
-        plt.imsave('../images/'+str(i)+'.png', I) 
-        plt.show(ax)
+    # for i in imgIds2:
+    #     img = cocoObject.loadImgs(i)[0]
+    #     I=io.imread(img['coco_url'])
+    #     plt.axis('off')
+    #     ax= plt.imshow(I)
+    #     plt.imsave('../images/'+str(i)+'.png', I) 
+    #     plt.show(ax)
     print(summary)
     return summary
