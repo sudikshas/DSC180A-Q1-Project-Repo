@@ -1,6 +1,6 @@
 # ExplainableAI Project
 
-Quick Note: While our code runs on the dsmlp cluster, we had problems pushing to github. I have downloaded individual files such as the demo and the run file. THe run file woud need the dataset and a config folder with the uploaded data-params.json file.(For this iteration of the run file we do not need the config folder) We will need some help in Office hours to understand how to submit this for future replications of the demo 
+<!--- Quick Note: While our code runs on the dsmlp cluster, we had problems pushing to github. I have downloaded individual files such as the demo and the run file. THe run file woud need the dataset and a config folder with the uploaded data-params.json file.(For this iteration of the run file we do not need the config folder) We will need some help in Office hours to understand how to submit this for future replications of the demo  ---> 
 
 
 
