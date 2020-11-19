@@ -1,63 +1,106 @@
-#!usr/bin/env pyhton
-#%matplotlib inline
-from pycocotools.coco import COCO
-import numpy as np
-import skimage.io as io
-import matplotlib.pyplot as plt
-import pylab
+#!/usr/bin/env python
+
+#imports
 import sys
+import os
 import json
-#pylab.rcParams['figure.figsize'] = (8.0, 10.0)
-
-dataDir='..'
-dataType='val2017'
-
-annFile='{}/annotations/instances_{}.json'.format(dataDir,dataType)
-coco=COCO(annFile)
-cats = coco.loadCats(coco.getCatIds())
-#nms=[cat['name'] for cat in cats]
-#print('COCO categories: \n{}\n'.format(' '.join(nms)))
-
-#nms = set([cat['supercategory'] for cat in cats])
-#print('COCO supercategories: \n{}'.format(' '.join(nms)))
-#catIds = coco.getCatIds(catNms=['car','dog']);
-#imgIds = coco.getImgIds(catIds=catIds);
-#print(len(imgIds))
-#print(imgIds)
-
-annFile = '{}/annotations/captions_{}.json'.format(dataDir,dataType)
-coco_caps=COCO(annFile)
-def get_associated_objects_images(base, added):
-    impath = '../images'
-    #lst = []
-    catIds = coco.getCatIds(catNms=base);
-    imgIds = coco.getImgIds(catIds=catIds);
-    
-    catIds2 = coco.getCatIds(catNms=base+added);
-    imgIds2 = coco.getImgIds(catIds=catIds2);
-    perc = len(imgIds2)/len(imgIds) * 100
-    
-    summary =  "{}% of the images with {} have {}".format(perc,', '.join(base_objects),
-                                                          ', '.join(add_objects))
-    for i in imgIds2:
-        img = coco.loadImgs(i)[0]
-        I=io.imread(img['coco_url'])
-        plt.axis('off')
-        ax= plt.imshow(I)
-        plt.imsave('../images/'+str(i)+'.png', I) 
-        plt.show(ax)
-    print(summary)
-    return summary
 
 
 
-with open('data_params.json') as f:
-    data = json.load(f)
-base_objects=[]
-add_objects=[]
-for i in data['base_objects']: 
-    base_objects.append(i)
-for i in data['add_objects']:
-    add_objects.append(i)
-print("RESULTS PRINTED IN ExplainableAI_checkpoint1/images")
-get_associated_objects_images(base_objects, add_objects)    
+from src.etl import *
+#from features import apply_features
+from src.Model.model import build_model
+from src.associated_images import *
+
+
+#import functions from files
+sys.path.insert(0, 'src') # add library code to path
+# from data_ingestion import *
+# from viz import *
+
+
+#get config file path names
+#data_ingest_params = 'config/test_data_params.json'
+data_params = 'config/data_params.json'
+file_params = 'config/data_files.json'
+results_dir = 'config/results_file.json'
+test_params = 'test/testdata/test_params.json'
+test_results = 'config/test_results_file.json'
+
+
+
+#function to load the config files into json
+def load_params(fp):
+    with open(fp) as fh:
+        param = json.load(fh)
+
+    return param
+
+
+#main function to run
+def main(targets):
+
+    # make the clean target
+    # if 'clean' in targets:
+    #     #shutil.rmtree('testData/', ignore_errors=True)
+    #     shutil.rmtree('finalVisuals/', ignore_errors=True)
+                
+    #test full project; data ingestion process and visuals
+    if 'run-project' in targets:
+        p = load_params(data_params)
+
+        #access files for the data
+        files = load_params(file_params)
+        #perform etl
+        coco = extract_COCO_data(files["dataDir"], files["dataFile"])
+        catsIds1 = get_categoriesIds(coco, p["base_objects"])
+        catsIds2 = get_categoriesIds(coco, p["base_objects"] + p["add_objects"])
+
+        img_Ids1 = get_imageIds(coco, catsIds1)
+        img_Ids2 = get_imageIds(coco, catsIds2) 
+
+        summary = get_associated_objects_images(coco,img_Ids1, img_Ids2, p["base_objects"], p["add_objects"])
+
+        outFile = load_params(results_dir)["out_file"]
+        outF = open(outFile, "w")
+        outF.write(summary)
+        outF.close()
+
+    if 'test-project' in targets:
+        #instances_file = 
+        p = load_params(test_params)
+        files = load_params(file_params)
+        #perform etl
+        coco = extract_COCO_data(files["dataDir"], files["dataFile"])
+        catsIds1 = get_categoriesIds(coco, p["base_objects"])
+        catsIds2 = get_categoriesIds(coco, p["base_objects"] + p["add_objects"])
+
+        img_Ids1 = get_imageIds(coco, catsIds1)
+        img_Ids2 = get_imageIds(coco, catsIds2) 
+
+        summary = get_associated_objects_images(coco,img_Ids1, img_Ids2, p["base_objects"], p["add_objects"])
+
+        outFile = load_params(test_results)["out_file"]
+        outF = open(outFile, "w")
+        outF.write(summary)
+        outF.close()
+
+        # collect_data(cfg["websites"], cfg["outdir"], "test")
+        
+        # cfg = load_params(visuals_params)
+        # create_plots(cfg["indir"], cfg["outdir"])
+       
+    #test full project; data ingestion process and visuals 
+    # if 'run-project' in targets:
+    #     cfg = load_params(data_ingest_params)
+    #     collect_data(cfg["websites"], cfg["outdir"], "full")
+        
+    #     cfg = load_params(visuals_params) #from data ingestion
+    #     create_plots(cfg["indir"], cfg["outdir"])
+        
+    return
+
+#first call to start data pipeline
+if __name__ == '__main__':
+    targets = sys.argv[1:]
+    main(targets)

@@ -1,6 +1,6 @@
 #!usr/bin/env python
 
-def model():
+def build_model():
     print("Here are parametrs to fine tune model")
 
-model()
+build_model()
