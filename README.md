@@ -13,7 +13,7 @@ Apart from that principle, the demonotebook along with the run script, outputs a
 
         How to run the demo notebook:
 
-python run.py
+**python run.py**
 
 This will create the images folder mentioned above as well as output the percentage of similarity between the two given parameters.
 
@@ -27,7 +27,7 @@ This will create the images folder mentioned above as well as output the percent
 
 -       add_objects parameter allows users to input additional objects to check if these categories are in the images with the base images
 
-python run.py test
+**python run.py test**
 
 Runs all the targets on a given test data under the test/testdata directory
 
