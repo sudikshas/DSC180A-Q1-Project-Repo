@@ -52,7 +52,7 @@ def main(targets):
         #access files for the data
         files = load_params(file_params)
         #perform etl
-        coco = extract_COCO_data(files["dataDir"], files["dataFile"])
+        coco = extract_COCO_data(files["data_dir"], files["data_file"])
         catsIds1 = get_categoriesIds(coco, p["base_objects"])
         catsIds2 = get_categoriesIds(coco, p["base_objects"] + p["add_objects"])
 
@@ -71,7 +71,7 @@ def main(targets):
         p = load_params(test_params)
         files = load_params(file_params)
         #perform etl
-        coco = extract_COCO_data(files["dataDir"], files["dataFile"])
+        coco = extract_COCO_data(files["data_dir"], files["data_file"])
         catsIds1 = get_categoriesIds(coco, p["base_objects"])
         catsIds2 = get_categoriesIds(coco, p["base_objects"] + p["add_objects"])
 
