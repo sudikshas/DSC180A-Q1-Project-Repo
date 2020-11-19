@@ -86,7 +86,7 @@ def main(targets):
         #completeFileName = os.path.join(save_path, "test_results.txt")         
         outFile = open(save_path, "w")
         print(outFile)
-        outF = open(outFile, "w")
+        #outF = open(outFile, "w")
         outF.write(summary)
         print("wrote test summary")
         outF.close()
