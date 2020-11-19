@@ -80,7 +80,12 @@ def main(targets):
 
         summary = get_associated_objects_images(coco,img_Ids1, img_Ids2, p["base_objects"], p["add_objects"])
 
-        outFile = load_params(test_results)["out_file"]
+        import os.path
+
+        save_path = load_params(test_results)["out_file"]
+        completeFileName = os.path.join(save_path, name_of_file+".txt")         
+        outFile = open(completeFileName, "w")
+        print(outFile)
         outF = open(outFile, "w")
         outF.write(summary)
         print("wrote test summary")
