@@ -66,7 +66,7 @@ def main(targets):
         outF.write(summary)
         outF.close()
 
-    if 'test-project' in targets:
+    if 'test' in targets:
         #instances_file = 
         p = load_params(test_params)
         files = load_params(file_params)
@@ -83,6 +83,7 @@ def main(targets):
         outFile = load_params(test_results)["out_file"]
         outF = open(outFile, "w")
         outF.write(summary)
+        print("wrote test summary")
         outF.close()
 
         # collect_data(cfg["websites"], cfg["outdir"], "test")
