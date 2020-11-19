@@ -1,0 +1,4 @@
+{
+  "base_objects": ["car"],
+  "add_objects": ["dog","phone"]
+}
