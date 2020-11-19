@@ -1,4 +1,4 @@
 {
-    "data_dir": "..",
+    "data_dir": "../cocoapi",
     "data_file": "val2017"
 }
