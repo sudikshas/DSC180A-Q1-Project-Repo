@@ -1,3 +1,9 @@
 {
-    "dockerhub-id": "sudis/dsc180a-project:latest"
+    "config": ["config/data_files.json", "config/data_params.json", "config/results_file.json", "config/test_results_file.json"], 
+    "build": "run.py", 
+    "library": ["src"], 
+    "notebook": ["notebooks/pycocoDemo_1.ipynb"], 
+    "targets": ["association-summary", "test"] 
 }
+
+

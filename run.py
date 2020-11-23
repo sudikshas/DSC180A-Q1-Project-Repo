@@ -4,13 +4,15 @@
 import sys
 import os
 import json
-
+import os.path
 
 
 from src.etl import *
 #from features import apply_features
 from src.Model.model import build_model
+
 from src.associated_images import *
+from src.training_image_classifier import *
 
 
 #import functions from files
@@ -26,6 +28,8 @@ file_params = 'config/data_files.json'
 results_dir = 'config/results_file.json'
 test_params = 'test/testdata/test_params.json'
 test_results = 'config/test_results_file.json'
+classifier_params = 'config/classifier_params.json'
+#cnn_params = 'config/test_results_file.json'
 
 
 
@@ -46,7 +50,8 @@ def main(targets):
     #     shutil.rmtree('finalVisuals/', ignore_errors=True)
                 
     #test full project; data ingestion process and visuals
-    if 'run-project' in targets:
+
+    if 'association-summary' in targets:
         p = load_params(data_params)
 
         #access files for the data
@@ -65,6 +70,25 @@ def main(targets):
         outF = open(outFile, "w")
         outF.write(summary)
         outF.close()
+
+    if "train_classifier":
+        cnn_params = load_params(classifier_params)
+        loss_score = training_classifier(cnn_params['train_data_dir'], cnn_params["train_coco"], cnn_params['train_batch_size'], cnn_params["train_shuffle_dl"], cnn_params["num_workers_dl"],
+        cnn_params["num_classes"], cnn_params["num_epochs"], cnn_params["lr"], cnn_params["momentum"],
+        cnn_params["weight_decay"], cnn_params["max_num_images"])
+
+        
+
+        save_path = cnn_params["result_file"]
+        #completeFileName = os.path.join(save_path, "test_results.txt")         
+        outFile = open(save_path, "w")
+        #print(outFile)
+        #outF = open(outFile, "w")
+        outFile.write(loss_score)
+        print("printed classifier training results")
+        outFile.close()
+
+
 
     if 'test' in targets:
         #instances_file = 
