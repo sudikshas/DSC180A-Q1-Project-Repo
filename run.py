@@ -7,12 +7,14 @@ import json
 import os.path
 
 
-from src.etl import *
+from src import etl
+#src/etl.py
 #from features import apply_features
 from src.Model.model import build_model
 
-from src.associated_images import *
-from src.training_image_classifier import *
+from src import training_image_classifier
+#from src.associated_images import *
+#from src.training_image_classifier import *
 
 
 #import functions from files
