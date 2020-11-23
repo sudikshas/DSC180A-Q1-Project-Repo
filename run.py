@@ -4,15 +4,10 @@
 import sys
 import os
 import json
-import os.path
 
 
-from src import etl
-#src/etl.py
-#from features import apply_features
-from src.Model.model import build_model
 
-from src import training_image_classifier
+
 #from src.associated_images import *
 #from src.training_image_classifier import *
 
@@ -21,6 +16,13 @@ from src import training_image_classifier
 sys.path.insert(0, 'src') # add library code to path
 # from data_ingestion import *
 # from viz import *
+
+from etl import *
+#src/etl.py
+#from features import apply_features
+from src.Model.model import build_model
+
+from training_image_classifier import *
 
 
 #get config file path names
@@ -79,7 +81,7 @@ def main(targets):
         cnn_params["num_classes"], cnn_params["num_epochs"], cnn_params["lr"], cnn_params["momentum"],
         cnn_params["weight_decay"], cnn_params["max_num_images"])
 
-        
+        import os.path
 
         save_path = cnn_params["result_file"]
         #completeFileName = os.path.join(save_path, "test_results.txt")         

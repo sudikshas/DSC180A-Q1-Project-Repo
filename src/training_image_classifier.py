@@ -45,7 +45,7 @@ def training_classifier(train_data_dir, train_coco, train_batch_size, train_shuf
     for imgs, annotations in data_loader:
         imgs = list(img.to(device) for img in imgs)
         annotations = [{k: v.to(device) for k, v in t.items()} for t in annotations]
-        print(annotations)
+        #print(annotations)
 
 
     model = get_model_instance_segmentation(num_classes)
