@@ -85,5 +85,5 @@ def training_classifier(train_data_dir, train_coco, train_batch_size, train_shuf
             max_images += 1
 
             print(f"Iteration: {i}/{len_dataloader}, Loss: {losses}")
-    final_output = "Final training error loss is " + losses
+    final_output = "Final training error loss is " + str(losses)
     return final_output
