@@ -25,6 +25,11 @@ traceroute
 # 3) install packages
 RUN pip install --no-cache-dir networkx scipy python-louvain geopandas babypandas
 
+# Install the COCO API
+RUN git clone https://github.com/cocodataset/cocoapi.git /cocoapi
+WORKDIR /cocoapi/PythonAPI
+RUN make install
+
 # 4) change back to notebook user
 #COPY /run_jupyter.sh /
 RUN echo 'jupyter notebook "@"' > /run_jupyter.sh 
