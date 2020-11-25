@@ -3,11 +3,11 @@
 
 # data science notebook
 # https://hub.docker.com/repository/docker/ucsdets/datascience-notebook/tags
-ARG BASE_CONTAINER=ucsdets/datascience-notebook:2020.2-stable
+#ARG BASE_CONTAINER=ucsdets/datascience-notebook:2020.2-stable
 
 # scipy/machine learning (tensorflow)
 # https://hub.docker.com/repository/docker/ucsdets/scipy-ml-notebook/tags
-# ARG BASE_CONTAINER=ucsdets/scipy-ml-notebook:2020.2-stable
+ARG BASE_CONTAINER=ucsdets/scipy-ml-notebook:2020.2-stable
 
 FROM $BASE_CONTAINER
 
@@ -26,7 +26,8 @@ traceroute
 RUN pip install --no-cache-dir networkx scipy python-louvain geopandas babypandas
 
 # 4) change back to notebook user
-COPY /run_jupyter.sh /
+#COPY /run_jupyter.sh /
+RUN echo 'jupyter notebook "@"' > /run_jupyter.sh 
 RUN chmod 755 /run_jupyter.sh 
 # USER $NB_UID
 
