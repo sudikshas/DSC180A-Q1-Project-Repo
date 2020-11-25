@@ -1,9 +1,9 @@
 {
-    "config": ["config/data_files.json", "config/data_params.json", "config/results_file.json", "config/test_results_file.json"], 
+    "config": ["config/classifier_params.json", "config/data_files.json", "config/data_params.json", "config/results_file.json", "config/test_results_file.json"], 
     "build": "run.py", 
     "library": ["src"], 
-    "notebook": ["notebooks/pycocoDemo_1.ipynb"], 
-    "targets": ["association-summary", "test"] 
+    "notebook": ["image_classifier_nn-Copy5"], 
+    "targets": ["association-summary","train_classifier","test"] 
 }
 
 
