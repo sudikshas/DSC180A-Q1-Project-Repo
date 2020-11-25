@@ -7,12 +7,14 @@ import json
 import os.path
 
 
-from src import etl
+from src.etl import *
 #src/etl.py
 #from features import apply_features
 from src.Model.model import build_model
 
-from src import training_image_classifier
+#from src import training_image_classifier
+from src.training_image_classifier import training_classifier
+from src.associated_images import *
 #from src.associated_images import *
 #from src.training_image_classifier import *
 
@@ -73,7 +75,7 @@ def main(targets):
         outF.write(summary)
         outF.close()
 
-    if "train_classifier":
+    if "train_classifier" in targets:
         cnn_params = load_params(classifier_params)
         loss_score = training_classifier(cnn_params['train_data_dir'], cnn_params["train_coco"], cnn_params['train_batch_size'], cnn_params["train_shuffle_dl"], cnn_params["num_workers_dl"],
         cnn_params["num_classes"], cnn_params["num_epochs"], cnn_params["lr"], cnn_params["momentum"],
