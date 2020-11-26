@@ -5,6 +5,7 @@ import sys
 import os
 import json
 import os.path
+import os
 
 
 from src.etl import *
@@ -108,10 +109,11 @@ def main(targets):
 
         summary = get_associated_objects_images(coco,img_Ids1, img_Ids2, p["base_objects"], p["add_objects"])
 
-        import os.path
+        
 
         save_path = load_params(test_results)["out_file"]
-        #completeFileName = os.path.join(save_path, "test_results.txt")         
+        #completeFileName = os.path.join(save_path, "test_results.txt") 
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)        
         outFile = open(save_path, "w")
         #print(outFile)
         #outF = open(outFile, "w")
