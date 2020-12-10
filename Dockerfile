@@ -32,7 +32,7 @@ RUN make install
 
 # 4) change back to notebook user
 #COPY /run_jupyter.sh /
-RUN echo 'jupyter notebook "@"' > /run_jupyter.sh 
+RUN echo 'jupyter notebook "$@"' > /run_jupyter.sh 
 RUN chmod 755 /run_jupyter.sh 
 # USER $NB_UID
 

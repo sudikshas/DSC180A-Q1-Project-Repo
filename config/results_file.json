@@ -1,4 +1,5 @@
 {
-    "out_file": "../results.txt"
-    
+    "gb_dir": "data/gb.jpg",
+    "cam_dir": "data/cam_gb.jpg",
+    "cam_img": "data/cam.jpg"
 }

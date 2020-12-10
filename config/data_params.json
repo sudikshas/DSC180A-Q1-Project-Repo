@@ -1,4 +1,3 @@
 {
-  "base_objects": ["car"],
-  "add_objects": ["dog","phone"]
+  "input_images": "example/both.png"
 }

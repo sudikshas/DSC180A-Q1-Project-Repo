@@ -14,8 +14,11 @@ from src.etl import *
 from src.Model.model import build_model
 
 #from src import training_image_classifier
+from src.grad_cam_model import run_models
+from src.grad_cam import *
 from src.training_image_classifier import training_classifier
-from src.associated_images import *
+
+
 #from src.associated_images import *
 #from src.training_image_classifier import *
 
@@ -29,11 +32,11 @@ sys.path.insert(0, 'src') # add library code to path
 #get config file path names
 #data_ingest_params = 'config/test_data_params.json'
 data_params = 'config/data_params.json'
-file_params = 'config/data_files.json'
+#file_params = 'config/data_files.json'
 results_dir = 'config/results_file.json'
-test_params = 'test/testdata/test_params.json'
+#test_params = 'test/testdata/test_params.json'
 test_results = 'config/test_results_file.json'
-classifier_params = 'config/classifier_params.json'
+#classifier_params = 'config/classifier_params.json'
 #cnn_params = 'config/test_results_file.json'
 
 
@@ -56,70 +59,82 @@ def main(targets):
                 
     #test full project; data ingestion process and visuals
 
-    if 'association-summary' in targets:
-        p = load_params(data_params)
+    # if 'association-summary' in targets:
+    #     p = load_params(data_params)
 
-        #access files for the data
-        files = load_params(file_params)
-        #perform etl
-        coco = extract_COCO_data(files["data_dir"], files["data_file"])
-        catsIds1 = get_categoriesIds(coco, p["base_objects"])
-        catsIds2 = get_categoriesIds(coco, p["base_objects"] + p["add_objects"])
+    #     #access files for the data
+    #     files = load_params(file_params)
+    #     #perform etl
+    #     coco = extract_COCO_data(files["data_dir"], files["data_file"])
+    #     catsIds1 = get_categoriesIds(coco, p["base_objects"])
+    #     catsIds2 = get_categoriesIds(coco, p["base_objects"] + p["add_objects"])
 
-        img_Ids1 = get_imageIds(coco, catsIds1)
-        img_Ids2 = get_imageIds(coco, catsIds2) 
+    #     img_Ids1 = get_imageIds(coco, catsIds1)
+    #     img_Ids2 = get_imageIds(coco, catsIds2) 
 
-        summary = get_associated_objects_images(coco,img_Ids1, img_Ids2, p["base_objects"], p["add_objects"])
+    #     summary = get_associated_objects_images(coco,img_Ids1, img_Ids2, p["base_objects"], p["add_objects"])
 
-        outFile = load_params(results_dir)["out_file"]
-        outF = open(outFile, "w")
-        outF.write(summary)
-        outF.close()
+    #     outFile = load_params(results_dir)["out_file"]
+    #     outF = open(outFile, "w")
+    #     outF.write(summary)
+    #     outF.close()
 
-    if "train_classifier" in targets:
-        cnn_params = load_params(classifier_params)
-        loss_score = training_classifier(cnn_params['train_data_dir'], cnn_params["train_coco"], cnn_params['train_batch_size'], cnn_params["train_shuffle_dl"], cnn_params["num_workers_dl"],
-        cnn_params["num_classes"], cnn_params["num_epochs"], cnn_params["lr"], cnn_params["momentum"],
-        cnn_params["weight_decay"], cnn_params["max_num_images"])
+    # if "train_classifier" in targets:
+    #     cnn_params = load_params(classifier_params)
+    #     loss_score = training_classifier(cnn_params['train_data_dir'], cnn_params["train_coco"], cnn_params['train_batch_size'], cnn_params["train_shuffle_dl"], cnn_params["num_workers_dl"],
+    #     cnn_params["num_classes"], cnn_params["num_epochs"], cnn_params["lr"], cnn_params["momentum"],
+    #     cnn_params["weight_decay"], cnn_params["max_num_images"])
 
         
 
-        save_path = cnn_params["result_file"]
-        #completeFileName = os.path.join(save_path, "test_results.txt")         
-        outFile = open(save_path, "w")
-        #print(outFile)
-        #outF = open(outFile, "w")
-        outFile.write(loss_score)
-        print("printed classifier training results")
-        outFile.close()
+    #     save_path = cnn_params["result_file"]
+    #     #completeFileName = os.path.join(save_path, "test_results.txt")         
+    #     outFile = open(save_path, "w")
+    #     #print(outFile)
+    #     #outF = open(outFile, "w")
+    #     outFile.write(loss_score)
+    #     print("printed classifier training results")
+    #     outFile.close()
+
 
 
 
     if 'test' in targets:
+        inputs= load_params(data_params)
+        results = load_params(results_dir)
+        #cam_path = results['cam_dir']
+        save_path = load_params(test_results)["out_file"]
+        #completeFileName = os.path.join(save_path, "test_results.txt") 
+        os.makedirs(os.path.dirname(save_path), exist_ok=True) 
+
+    
+        run_models(inputs["input_img"],results["cam_img"],results["gb_dir"], results['cam_dir'])
+
+        
         #instances_file = 
-        p = load_params(test_params)
-        files = load_params(file_params)
-        #perform etl
-        coco = extract_COCO_data(files["data_dir"], files["data_file"])
-        catsIds1 = get_categoriesIds(coco, p["base_objects"])
-        catsIds2 = get_categoriesIds(coco, p["base_objects"] + p["add_objects"])
+        # p = load_params(test_params)
+        # files = load_params(file_params)
+        # #perform etl
+        # coco = extract_COCO_data(files["data_dir"], files["data_file"])
+        # catsIds1 = get_categoriesIds(coco, p["base_objects"])
+        # catsIds2 = get_categoriesIds(coco, p["base_objects"] + p["add_objects"])
 
-        img_Ids1 = get_imageIds(coco, catsIds1)
-        img_Ids2 = get_imageIds(coco, catsIds2) 
+        # img_Ids1 = get_imageIds(coco, catsIds1)
+        # img_Ids2 = get_imageIds(coco, catsIds2) 
 
-        summary = get_associated_objects_images(coco,img_Ids1, img_Ids2, p["base_objects"], p["add_objects"])
+        # summary = get_associated_objects_images(coco,img_Ids1, img_Ids2, p["base_objects"], p["add_objects"])
 
         
 
-        save_path = load_params(test_results)["out_file"]
-        #completeFileName = os.path.join(save_path, "test_results.txt") 
-        os.makedirs(os.path.dirname(save_path), exist_ok=True)        
-        outFile = open(save_path, "w")
-        #print(outFile)
-        #outF = open(outFile, "w")
-        outFile.write(summary)
-        print("wrote test summary")
-        outFile.close()
+        # save_path = load_params(test_results)["out_file"]
+        # #completeFileName = os.path.join(save_path, "test_results.txt") 
+        # os.makedirs(os.path.dirname(save_path), exist_ok=True)        
+        # outFile = open(save_path, "w")
+        # #print(outFile)
+        # #outF = open(outFile, "w")
+        # outFile.write(summary)
+        # print("wrote test summary")
+        # outFile.close()
 
         # collect_data(cfg["websites"], cfg["outdir"], "test")
         
