@@ -19,16 +19,25 @@ USER root
 RUN apt-get install -y htop \
 aria2 \
 nmap \
-traceroute
+traceroute 
+# libopencv-dev python-opencv
 
 
 # 3) install packages
-RUN pip install --no-cache-dir networkx scipy python-louvain geopandas babypandas cv2 
+RUN pip install --no-cache-dir networkx scipy python-louvain geopandas babypandas opencv-python
 
 # Install the COCO API
 RUN git clone https://github.com/cocodataset/cocoapi.git /cocoapi
 WORKDIR /cocoapi/PythonAPI
 RUN make install
+
+# FROM jjanzic/docker-python3-opencv
+# COPY . /app
+# WORKDIR /app
+
+# RUN pip3 install -r requirements.txt
+# ENTRYPOINT ["python3"]
+# CMD ["app.py"]
 
 # 4) change back to notebook user
 #COPY /run_jupyter.sh /
