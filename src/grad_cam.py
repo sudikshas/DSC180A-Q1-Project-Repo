@@ -108,7 +108,6 @@ class GradCam:
 
         if index == None:
             index = np.argmax(output.cpu().data.numpy())
-        print("grad cam index: ", index)
         
         one_hot = np.zeros((1, output.size()[-1]), dtype=np.float32)
         one_hot[0][index] = 1
