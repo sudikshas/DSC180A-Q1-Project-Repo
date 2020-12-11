@@ -3,7 +3,7 @@
                "config/results_paths.json", "config/test_results_file.json"], 
     "build": "run.py", 
     "library": ["src"], 
-    "notebook": ["image_classifier_nn-Copy5"], 
+    "notebook": ["Final_demo_notebook.ipynb"], 
     "targets": ["generate_image","test"],
     "dockerhub-id": "sudis/dsc180a-project:latest"
 }
