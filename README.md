@@ -11,8 +11,6 @@ The purpose of our demo notebook is to apply the Grad-CAM algorithm to images fr
 
 Apart from that principle, the demonotebook along with the run script, outputs a list of images based on parameters: base_images and add_objects. These parameters can be changed for experimentation in the data-params.json file. Ths will out put a percentage based on the information above as well as images satisfying that criteria in the folder images in the main directory. This images folder will get rewritten based on changes to the data-params.json file
 
-        How to run the demo notebook:
-
 **python run.py generate_image**
 
 This will create an input image that has the categories specified in the data-params.json file. It stores this resulting image in the test data folder.
@@ -24,4 +22,4 @@ This target runs the grad cam algorithm on the generated input image from the pr
 
 Group Members Work Contributions:
 - Pratyush Juneja: Worked on the final replication report and demo notebook
--Sudiksha - Worked on setting up the Grad-CAM code and applying it to COCO dataset
+- Sudiksha: Worked on setting up the Grad-CAM code and applying it to COCO dataset
