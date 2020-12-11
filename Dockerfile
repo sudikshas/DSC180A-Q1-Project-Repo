@@ -31,7 +31,7 @@ RUN apt-get install -y libsm6 libxext6 libxrender-dev libglib2.0-0
 
 # 3) install packages
 RUN pip install --no-cache-dir networkx scipy python-louvain geopandas babypandas opencv-python
-RUN pip3 install opencv-python
+RUN pip3 install opencv-python torch torchvision
 
 # Install the COCO API
 RUN git clone https://github.com/cocodataset/cocoapi.git /cocoapi

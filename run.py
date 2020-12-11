@@ -12,7 +12,7 @@ import cv2
 from src.etl import *
 #src/etl.py
 #from features import apply_features
-from src.Model.model import build_model
+
 
 #from src import training_image_classifier
 from src.grad_cam_model import run_models
