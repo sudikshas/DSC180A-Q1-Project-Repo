@@ -24,13 +24,14 @@ traceroute
 # apt-get update
 # apt-get install -y libsm6 libxext6 libxrender-dev
 # pip install opencv-python
-RUN apt-get update
+# RUN apt-get update
 RUN apt-get install -y libsm6 libxext6 libxrender-dev libglib2.0-0
 # RUN pip install opencv-python
 
 
 # 3) install packages
 RUN pip install --no-cache-dir networkx scipy python-louvain geopandas babypandas opencv-python
+RUN pip3 install opencv-python
 
 # Install the COCO API
 RUN git clone https://github.com/cocodataset/cocoapi.git /cocoapi
