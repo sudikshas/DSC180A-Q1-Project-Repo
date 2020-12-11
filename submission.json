@@ -4,7 +4,8 @@
     "build": "run.py", 
     "library": ["src"], 
     "notebook": ["image_classifier_nn-Copy5"], 
-    "targets": ["generate_image","test"] 
+    "targets": ["generate_image","test"],
+    "dockerhub-id": "sudis/dsc180a-project:latest"
 }
 
 

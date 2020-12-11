@@ -1,4 +1,6 @@
 {
     "data_dir": "../cocoapi",
-    "data_file": "val2017"
+    "data_file": "val2017",
+    "object_categories": ["dog", "car"],
+    "image_out_path": "test/testdata/input.jpg"
 }

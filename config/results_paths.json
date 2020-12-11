@@ -1,5 +1,7 @@
 {
+    "image_out_path": "test/testdata/input.jpg",
     "gb_dir": "data/gb.jpg",
     "cam_dir": "data/cam_gb.jpg",
-    "cam_img": "data/cam.jpg"
+    "cam_img": "data/cam.jpg",
+    "out_dir": "data"
 }
