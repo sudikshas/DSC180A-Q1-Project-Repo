@@ -1,10 +1,5 @@
 
-from src.Model.cnn import (
-    get_model_instance_segmentation,
-    collate_fn,
-    get_transform,
-    myOwnDataset,
-)
+
 
 import torch
 # from src import *
