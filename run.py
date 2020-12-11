@@ -6,6 +6,7 @@ import os
 import json
 import os.path
 import os
+import cv2
 
 
 from src.etl import *
@@ -31,9 +32,9 @@ sys.path.insert(0, 'src') # add library code to path
 
 #get config file path names
 #data_ingest_params = 'config/test_data_params.json'
-data_params = 'config/data_params.json'
-#file_params = 'config/data_files.json'
-results_dir = 'config/results_file.json'
+data_params = 'config/data_input_params.json'
+file_params = 'config/data_files.json'
+results_paths = 'config/results_paths.json'
 #test_params = 'test/testdata/test_params.json'
 test_results = 'config/test_results_file.json'
 #classifier_params = 'config/classifier_params.json'
@@ -96,12 +97,22 @@ def main(targets):
     #     print("printed classifier training results")
     #     outFile.close()
 
+    if 'data' in targets: #data
+        #access files for the data
+        files = load_params(file_params)
+        p = load_params(data_params)
+        results = load_params(results_paths)
+        #perform etl
+    
+        img = get_input_image(files["data_dir"], files["data_file"], p["object_categories"])
+        cv2.imwrite(results["gb_dir"], img)
+
 
 
 
     if 'test' in targets:
         inputs= load_params(data_params)
-        results = load_params(results_dir)
+        results = load_params(results_paths)
         #cam_path = results['cam_dir']
         save_path = load_params(test_results)["out_file"]
         #completeFileName = os.path.join(save_path, "test_results.txt") 
