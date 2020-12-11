@@ -10,6 +10,7 @@ import shutil
 import subprocess as sp
 import requests
 import json
+import skimage.io as io
 from pycocotools.coco import COCO
 
 
@@ -21,10 +22,13 @@ def extract_COCO_data(dataDir, dataFile):
 def get_input_image(dataDir, dataFile, cats):
     annFile='{}/annotations/instances_{}.json'.format(dataDir,dataFile)
     coco=COCO(annFile)
-    
+    print("cats: ", cats)
     catIds = coco.getCatIds(catNms=cats)
     imgIds = coco.getImgIds(catIds=catIds)
     img = coco.loadImgs(imgIds[np.random.randint(0,len(imgIds))])[0]
+    img = io.imread(img['coco_url'])
+#     print("type: ", type(img))
+#     print('img: ', img)
     return img
     #return coco
 

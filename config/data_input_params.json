@@ -1,4 +1,4 @@
 {
   "object_categories": ["dog", "car"],
-  "image_out_path": "examples/input.jpg"
+  "image_out_path": "test/testdata/input.jpg"
 }

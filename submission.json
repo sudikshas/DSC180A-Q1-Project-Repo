@@ -1,9 +1,10 @@
 {
-    "config": ["config/classifier_params.json", "config/data_files.json", "config/data_params.json", "config/results_file.json", "config/test_results_file.json"], 
+    "config": ["config/classifier_params.json", "config/data_files.json", "config/data_input_params.json",
+               "config/results_paths.json", "config/test_results_file.json"], 
     "build": "run.py", 
     "library": ["src"], 
     "notebook": ["image_classifier_nn-Copy5"], 
-    "targets": ["association-summary","train_classifier","test"] 
+    "targets": ["generate_image","test"] 
 }
 
 

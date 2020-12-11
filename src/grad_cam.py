@@ -95,6 +95,7 @@ class GradCam:
             self.model = model.cuda()
 
         self.extractor = ModelOutputs(self.model, self.feature_module, target_layer_names)
+     
 
     def forward(self, input):
         return self.model(input)
@@ -107,7 +108,8 @@ class GradCam:
 
         if index == None:
             index = np.argmax(output.cpu().data.numpy())
-
+        print("grad cam index: ", index)
+        
         one_hot = np.zeros((1, output.size()[-1]), dtype=np.float32)
         one_hot[0][index] = 1
         one_hot = torch.from_numpy(one_hot).requires_grad_(True)
@@ -120,7 +122,9 @@ class GradCam:
         self.model.zero_grad()
         one_hot.backward(retain_graph=True)
 
+        
         grads_val = self.extractor.get_gradients()[-1].cpu().data.numpy()
+
 
         target = features[-1]
         target = target.cpu().data.numpy()[0, :]
