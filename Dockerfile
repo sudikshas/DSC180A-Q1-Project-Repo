@@ -19,8 +19,11 @@ USER root
 RUN apt-get install -y htop \
 aria2 \
 nmap \
-traceroute 
+traceroute libsm6 libxext6 libxrender-dev
 # libopencv-dev python-opencv
+# apt-get update
+# apt-get install -y libsm6 libxext6 libxrender-dev
+# pip install opencv-python
 
 
 # 3) install packages
